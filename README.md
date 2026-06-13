@@ -64,7 +64,7 @@ O projeto segue uma pipeline bem delimitada, composta pelas seguintes etapas:
 
 O ponto de partida do projeto FMF é a definição de uma pergunta objetiva:
 
-> **"Qual modelo de Machine Learning melhor se enquadra na análise de sentimentos (output) dado a crítica de uum filme (input)?"**
+**"Qual modelo de Machine Learning melhor se enquadra na análise de sentimentos (output) dado a crítica de uum filme (input)?"**
 
 O problema é classificado como **classificação binária de texto** (*binary text classification*), em que a entrada (*input*) é o texto da crítica e a saída (*output*) é o rótulo de sentimento, sendo positivo ou negativo. A escolha desse problema justifica o uso de algoritmos supervisionados, conforme heurísticas, pois tanto as variáveis de entrada quanto as de saída são bem identificadas e rotuladas.
 
@@ -99,8 +99,8 @@ O dataset balanceado é dividido com `train_test_split` do scikit-learn, reserva
 
 Como modelos de aprendizado de máquina operam sobre vetores numéricos, o texto das críticas precisa ser convertido. São apresentadas duas abordagens dentro de Bag of Words:
 
-- **CountVectorizer**: registra a frequência absoluta de cada palavra no documento. Palavras como "love", "hate" e "code" recebem o mesmo peso caso apareçam o mesmo número de vezes.
-- **TF-IDF** (*Term Frequency – Inverse Document Frequency*): atribui pesos que refletem a importância relativa de cada palavra no corpus. Palavras comuns a muitos documentos recebem peso menor, enquanto palavras distintivas recebem peso maior.
+1. **CountVectorizer**: registra a frequência absoluta de cada palavra no documento. Palavras como "love", "hate" e "code" recebem o mesmo peso caso apareçam o mesmo número de vezes.
+2. **TF-IDF** (*Term Frequency – Inverse Document Frequency*): atribui pesos que refletem a importância relativa de cada palavra no corpus. Palavras comuns a muitos documentos recebem peso menor, enquanto palavras distintivas recebem peso maior.
 
 O projeto opta pelo **TF-IDF**, pois o objetivo é identificar palavras representativas de cada classe de sentimento:
 
@@ -138,25 +138,25 @@ A comunicação dos resultados evidencia o SVM como a solução mais robusta par
 
 ## 3. Execução do Projeto FMF
 
-> *A completar.*
+*A completar.*
 
 ---
 
 ## 4. Definição do Ciclo de Divergência
 
-> *A completar.*
+*A completar.*
 
 ---
 
 ## 5. Execução do Projeto Original
 
-> *A completar.*
+*A completar.*
 
 ---
 
 ## 6. Cronograma de Desenvolvimento
  
-> *Atualizado continuamente ao longo do progresso do projeto.*
+*Atualizado continuamente ao longo do progresso do projeto.*
  
 **Fase 1**
  
