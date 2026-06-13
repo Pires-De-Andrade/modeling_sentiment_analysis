@@ -160,17 +160,18 @@ A comunicação dos resultados evidencia o SVM como a solução mais robusta par
 **Fase 1**
  
 1. _Análise do Projeto FMF_
-   a) status: concluída 
+   a) status: `concluída`
 2. _Definição dos Ciclos AGEMC no Projeto FMF_
-   a) status: concluída 
+   a) status: `concluída`
 3. _Execução do Projeto FMF_
-   a) status: em progresso
+   a) status: `em progresso`
+
 **Fase 2**
  
 4. _Definição do Ciclo de Divergência_
-   a) status: em progresso
+   a) status: `em progresso`
 5. _Execução do Projeto Original_
-   a) status: em progresso
+   a) status: `em progresso`
 ---
 
 *Trabalho Final da Disciplina de Pensamento Analítico de Dados*
