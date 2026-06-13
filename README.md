@@ -16,6 +16,7 @@ Nas seções abaixo, é definido:
 ## 1. Análise do Projeto FMF
 
 O projeto FMF é um guia prático de construção de um modelo de aprendizado de máquina voltado para **análise de sentimentos em críticas de filmes**, desenvolvido com a linguagem Python e a ferramenta **scikit-learn** (sklearn). Seu objetivo é analisar qual modelo de Machine Learning melhor se enquadra na análise de sentimentos (output) dado a crítica de uum filme (input).
+
 O projeto original, desenvolvido por "thepycoach", pode ser encontrado atráves do link ao seu repositório: [GitHub do Autor](https://github.com/thepycoach/data-science-projects/blob/main/Sklearn%20Tutorial%20(Binary%20Text%20Classification).ipynb)
 
 ### Contexto
@@ -42,7 +43,7 @@ O projeto segue uma pipeline bem delimitada, composta pelas seguintes etapas:
 3. **Vetorização textual**: conversão do texto em representações numéricas com TF-IDF.
 4. **Modelagem**: treinamento e comparação de quatro classificadores (SVM, Árvore de Decisão, Naive Bayes e Regressão Logística).
 5. **Avaliação**: análise de desempenho com acurácia, F1-score, relatório de classificação e matriz de confusão.
-6. **Otimização**: ajuste fino dos hiperparâmetros do melhor modelo via `GridSearchCV`.
+6. **Otimização**: ajuste fino dos hiperparâmetros do melhor modelo via GridSearchCV.
 
 ### Características
 
@@ -54,7 +55,7 @@ O projeto segue uma pipeline bem delimitada, composta pelas seguintes etapas:
 ### Limitações Observadas
 
 1. A amostra de 10.000 registros, embora suficiente para fins didáticos, representa apenas 20% do dataset original, podendo subestimar o potencial dos modelos em escala completa;
-2. Apenas algoritmos clássicos de ML são avaliados... abordagens baseadas em **embeddings** (Word2Vec, BERT, etc.) não são analisadas.
+2. Apenas algoritmos clássicos de ML são avaliados... abordagens baseadas em embeddings (Word2Vec, BERT, etc.) não são analisadas.
 
 ---
 
@@ -62,22 +63,20 @@ O projeto segue uma pipeline bem delimitada, composta pelas seguintes etapas:
 
 ### ASK (Formulação do Problema):
 
-O ponto de partida do projeto FMF é a definição de uma pergunta objetiva:
+O ponto de partida do projeto FMF é a definição da pergunta: **"Qual modelo de Machine Learning melhor se enquadra na análise de sentimentos (output) dado a crítica de uum filme (input)?"**
 
-**"Qual modelo de Machine Learning melhor se enquadra na análise de sentimentos (output) dado a crítica de uum filme (input)?"**
-
-O problema é classificado como **classificação binária de texto** (*binary text classification*), em que a entrada (*input*) é o texto da crítica e a saída (*output*) é o rótulo de sentimento, sendo positivo ou negativo. A escolha desse problema justifica o uso de algoritmos supervisionados, conforme heurísticas, pois tanto as variáveis de entrada quanto as de saída são bem identificadas e rotuladas.
+Classificamos o problema como classificação binária de texto (binary text classification), em que a entrada (input) é o texto da crítica e a saída (output) é o rótulo de sentimento, sendo positivo ou negativo. A escolha desse problema justifica o uso de algoritmos supervisionados, conforme heurísticas, pois tanto as variáveis de entrada quanto as de saída são bem identificadas e rotuladas.
 
 ---
 
 ### GET (Obtenção dos Dados):
 
-Os dados utilizados provêm do **dataset IMDB de 50.000 críticas de filmes**, disponibilizado publicamente na plataforma **Kaggle**. O dataset possui duas colunas: 
+Os dados utilizados provêm do dataset IMDB de 50.000 críticas de filmes, disponibilizado publicamente na plataforma Kaggle. O dataset possui duas colunas: 
 
 1. `review`: texto da crítica escrita pelo usuário;
 2. `sentimet`: rótulo de sentimento como positivo ou negativo.
 
-Para viabilizar o treinamento em tempo razoável, é extraída uma amostra de **10.000 linhas** — intencionalmente desequilibrada, com 9.000 críticas positivas e 1.000 negativas... para introduzir a problemática de classes desbalanceadas nas etapas seguintes.
+Para viabilizar o treinamento em tempo razoável, é extraída uma amostra de 10.000 linhas — intencionalmente desequilibrada, com 9.000 críticas positivas e 1.000 negativas... para introduzir a problemática de classes desbalanceadas nas etapas seguintes.
 
 Os dados estão disponíveis atráves do link: [Kaggle](https://www.kaggle.com/datasets/lakshmi25npathi/imdb-dataset-of-50k-movie-reviews)
 
@@ -89,18 +88,18 @@ Esta etapa engloba três atividades principais:
 
 **a) Tratamento de Classes Desbalanceadas**
 
-A amostra gerada apresenta desbalanceamento: 9.000 exemplos positivos contra 1.000 negativos. Para corrigir esse desvio, é aplicada a técnica de **undersampling aleatório** por meio da classe `RandomUnderSampler` da biblioteca `imblearn`, que reduz a classe majoritária ao tamanho da classe minoritária. O resultado é um dataset balanceado (`df_review_bal`) com **1.000 exemplos por classe**.
+A amostra gerada apresenta desbalanceamento: 9.000 exemplos positivos contra 1.000 negativos. Para corrigir esse desvio, é aplicada a técnica de undersampling aleatório por meio da classe RandomUnderSampler da biblioteca imblearn, que reduz a classe majoritária ao tamanho da classe minoritária. O resultado é um dataset balanceado (df_review_bal) com 1.000 exemplos por classe.
 
 **b) Divisão em Conjuntos de Treino e Teste**
 
-O dataset balanceado é dividido com `train_test_split` do scikit-learn, reservando **33% para teste** e **67% para treino**:
+O dataset balanceado é dividido com train_test_split do scikit-learn, reservando **33% para teste** e **67% para treino**:
 
 **c) Representação Textual (Bag of Words)**
 
 Como modelos de aprendizado de máquina operam sobre vetores numéricos, o texto das críticas precisa ser convertido. São apresentadas duas abordagens dentro de Bag of Words:
 
-1. **CountVectorizer**: registra a frequência absoluta de cada palavra no documento. Palavras como "love", "hate" e "code" recebem o mesmo peso caso apareçam o mesmo número de vezes.
-2. **TF-IDF** (*Term Frequency – Inverse Document Frequency*): atribui pesos que refletem a importância relativa de cada palavra no corpus. Palavras comuns a muitos documentos recebem peso menor, enquanto palavras distintivas recebem peso maior.
+1. `CountVectorizer`: registra a frequência absoluta de cada palavra no documento. Palavras como "love", "hate" e "code" recebem o mesmo peso caso apareçam o mesmo número de vezes.
+2. `TF-IDF` (Term Frequency – Inverse Document Frequency): atribui pesos que refletem a importância relativa de cada palavra no corpus. Palavras comuns a muitos documentos recebem peso menor, enquanto palavras distintivas recebem peso maior.
 
 O projeto opta pelo **TF-IDF**, pois o objetivo é identificar palavras representativas de cada classe de sentimento:
 
@@ -110,7 +109,7 @@ A matriz resultante possui **1.340 críticas × 20.625 palavras** (vocabulário 
 
 ### MODEL — Seleção e Treinamento dos Modelos:
 
-Dado o caráter supervisionado e de classificação do problema, são treinados e comparados **quatro algoritmos**:
+Dado o caráter supervisionado e de classificação do problema, são treinados e comparados quatro algoritmos:
 
 1. `Support Vector Machine (SVM)`, com acurácia média de 84%;
 2. `Logistic Regression`, com acurácia média de 83%;
@@ -119,7 +118,7 @@ Dado o caráter supervisionado e de classificação do problema, são treinados 
 
 O treinamento segue o mesmo padrão para todos os modelos: fornecer os vetores TF-IDF do conjunto de treino e os rótulos correspondentes.
 
-Após a seleção do SVM como modelo de melhor desempenho, é realizado o ajuste de hiperparâmetros com `GridSearchCV`, que realiza busca sobre combinações de parâmetros via validação cruzada de 5 folds.
+Após a seleção do SVM como modelo de melhor desempenho, é realizado o ajuste de hiperparâmetros com GridSearchCV, que realiza busca sobre combinações de parâmetros via validação cruzada de 5 folds.
 
 ---
 
@@ -127,8 +126,8 @@ Após a seleção do SVM como modelo de melhor desempenho, é realizado o ajuste
 
 Os resultados são avaliados com quatro métricas:
 
-1. **Acurácia Média**: proporção de predições corretas sobre o total. O SVM alcança **84%**.
-2. **F1-Score**: média harmônica entre precisão e revocação, relevante em cenários com classes desbalanceadas. Para o SVM: **0,84** (positivo) e **0,83** (negativo).
+1. **Acurácia Média**: proporção de predições corretas sobre o total. O SVM alcança 84%.
+2. **F1-Score**: média harmônica entre precisão e revocação, relevante em cenários com classes desbalanceadas. Para o SVM: 0,84(positivo) e 0,83 (negativo).
 3. **Relatório de Classificação**: exibe precisão, revocação e F1-score por classe, além da acurácia geral.
 4. **Matriz de Confusão**: tabela que decompõe as predições em verdadeiros positivos (290), falsos positivos (45), falsos negativos (60) e verdadeiros negativos (265), permitindo identificar padrões de erro do modelo.
 
@@ -161,9 +160,9 @@ A comunicação dos resultados evidencia o SVM como a solução mais robusta par
 **Fase 1**
  
 1. _Análise do Projeto FMF_
-   a) status: concluída ✅
+   a) status: concluída 
 2. _Definição dos Ciclos AGEMC no Projeto FMF_
-   a) status: concluída ✅
+   a) status: concluída 
 3. _Execução do Projeto FMF_
    a) status: em progresso
 **Fase 2**
