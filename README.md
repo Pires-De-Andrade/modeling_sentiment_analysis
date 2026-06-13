@@ -11,10 +11,6 @@ Nas seções abaixo, é definido:
 5. [Execução do Projeto Original](#5-execução-do-projeto-original)
 6. [Cronograma de Desenvolvimento](#6-cronograma-de-desenvolvimento)
 
-> **Fase 1** (Semanas 1–2): Seções 1, 2 e 3  
-> **Fase 2** (Semanas 3–4): Seções 4 e 5  
-> **Contínuo**: Seção 6 (atualizada ao longo do progresso)
-
 ---
 
 ## 1. Análise do Projeto FMF
