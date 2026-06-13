@@ -38,12 +38,12 @@ O projeto FMF usa as seguintes bibliotecas:
 
 O projeto segue uma pipeline bem delimitada, composta pelas seguintes etapas:
 
-1. **Aquisição dos dados**: download do dataset IMDB (50.000 críticas) via Kaggle.
-2. **Preparação dos dados**: amostragem, balanceamento de classes e divisão em conjuntos de treino e teste.
-3. **Vetorização textual**: conversão do texto em representações numéricas com TF-IDF.
-4. **Modelagem**: treinamento e comparação de quatro classificadores (SVM, Árvore de Decisão, Naive Bayes e Regressão Logística).
-5. **Avaliação**: análise de desempenho com acurácia, F1-score, relatório de classificação e matriz de confusão.
-6. **Otimização**: ajuste fino dos hiperparâmetros do melhor modelo via GridSearchCV.
+1. `Aquisição dos dados`: download do dataset IMDB (50.000 críticas) via Kaggle.
+2. `Preparação dos dados`: amostragem, balanceamento de classes e divisão em conjuntos de treino e teste.
+3. `Vetorização textual`: conversão do texto em representações numéricas com TF-IDF.
+4. `Modelagem`: treinamento e comparação de quatro classificadores (SVM, Árvore de Decisão, Naive Bayes e Regressão Logística).
+5. `Avaliação`: análise de desempenho com acurácia, F1-score, relatório de classificação e matriz de confusão.
+6. `Otimização`: ajuste fino dos hiperparâmetros do melhor modelo via GridSearchCV.
 
 ### Características
 
@@ -126,10 +126,10 @@ Após a seleção do SVM como modelo de melhor desempenho, é realizado o ajuste
 
 Os resultados são avaliados com quatro métricas:
 
-1. **Acurácia Média**: proporção de predições corretas sobre o total. O SVM alcança 84%.
-2. **F1-Score**: média harmônica entre precisão e revocação, relevante em cenários com classes desbalanceadas. Para o SVM: 0,84(positivo) e 0,83 (negativo).
-3. **Relatório de Classificação**: exibe precisão, revocação e F1-score por classe, além da acurácia geral.
-4. **Matriz de Confusão**: tabela que decompõe as predições em verdadeiros positivos (290), falsos positivos (45), falsos negativos (60) e verdadeiros negativos (265), permitindo identificar padrões de erro do modelo.
+1. `Acurácia Média`: proporção de predições corretas sobre o total. O SVM alcança 84%.
+2. `F1-Score`: média harmônica entre precisão e revocação, relevante em cenários com classes desbalanceadas. Para o SVM: 0,84(positivo) e 0,83 (negativo).
+3. `Relatório de Classificação`: exibe precisão, revocação e F1-score por classe, além da acurácia geral.
+4. `Matriz de Confusão`: tabela que decompõe as predições em verdadeiros positivos (290), falsos positivos (45), falsos negativos (60) e verdadeiros negativos (265), permitindo identificar padrões de erro do modelo.
 
 A comunicação dos resultados evidencia o SVM como a solução mais robusta para o problema de classificação binária de sentimentos no dataset IMDB.
 
