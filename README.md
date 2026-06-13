@@ -4,12 +4,12 @@ O objetivo desse repositório é a elaboração, condução e execução do trab
 
 Nas seções abaixo, é definido:
 
-1. [Análise do Projeto FMF](#1-análise-do-projeto-fmf)
-2. [Definição dos Ciclos AGEMC no Projeto FMF](#2-definição-dos-ciclos-agemc-no-projeto-fmf)
-3. [Execução do Projeto FMF](#3-execução-do-projeto-fmf)
-4. [Definição do Ciclo de Divergência](#4-definição-do-ciclo-de-divergência)
-5. [Execução do Projeto Original](#5-execução-do-projeto-original)
-6. [Cronograma de Desenvolvimento](#6-cronograma-de-desenvolvimento)
+1. [Análise do Projeto FMF](#1-análise-do-projeto-fmf): Finalizado
+2. [Definição dos Ciclos AGEMC no Projeto FMF](#2-definição-dos-ciclos-agemc-no-projeto-fmf): Finalizado
+3. [Execução do Projeto FMF](#3-execução-do-projeto-fmf): Em progresso...
+4. [Definição do Ciclo de Divergência](#4-definição-do-ciclo-de-divergência): Em progresso...
+5. [Execução do Projeto Original](#5-execução-do-projeto-original): Em progresso...
+6. [Cronograma de Desenvolvimento](#6-cronograma-de-desenvolvimento): Em progresso...
 
 ---
 
