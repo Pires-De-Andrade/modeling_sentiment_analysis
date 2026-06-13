@@ -20,6 +20,7 @@ Nas seções abaixo, é definido:
 ## 1. Análise do Projeto FMF
 
 O projeto FMF é um guia prático de construção de um modelo de aprendizado de máquina voltado para **análise de sentimentos em críticas de filmes**, desenvolvido com a linguagem Python e a ferramenta **scikit-learn** (sklearn). Seu objetivo é analisar qual modelo de Machine Learning melhor se enquadra na análise de sentimentos (output) dado a crítica de uum filme (input).
+O projeto original, desenvolvido por "thepycoach", pode ser encontrado atráves do link ao seu repositório: [GitHub do Autor](https://github.com/thepycoach/data-science-projects/blob/main/Sklearn%20Tutorial%20(Binary%20Text%20Classification).ipynb)
 
 ### Contexto
 
@@ -27,7 +28,7 @@ A análise de sentimentos é uma das tarefas mais recorrentes em Processamento d
 
 ### Problema Abordado
 
-O problema tratado é de **classificação binária de texto**: dado o texto de uma crítica cinematográfica, o modelo deve classificá-la como `positive` (positiva) ou `negative` (negativa). Trata-se de um problema supervisionado, pois os rótulos de saída são conhecidos e estão presentes no dataset utilizado.
+O problema tratado é de **classificação binária de texto**: dado o texto de uma crítica cinematográfica, o modelo deve classificá-la como positive (positiva) ou negative (negativa). Trata-se de um problema supervisionado, pois os rótulos de saída são conhecidos e estão presentes no dataset utilizado.
 
 ### Tecnologias e Bibliotecas Utilizadas
 
@@ -47,24 +48,23 @@ O projeto segue uma pipeline bem delimitada, composta pelas seguintes etapas:
 5. **Avaliação**: análise de desempenho com acurácia, F1-score, relatório de classificação e matriz de confusão.
 6. **Otimização**: ajuste fino dos hiperparâmetros do melhor modelo via `GridSearchCV`.
 
-### Características Notáveis
+### Características
 
-- O projeto introduz deliberadamente um **cenário de desbalanceamento de classes** (9.000 positivos × 1.000 negativos) para motivar o uso de técnicas de reamostragem, tornando-o mais representativo de situações reais de ciência de dados.
-- A comparação entre **CountVectorizer e TF-IDF** oferece uma discussão conceitual relevante sobre representação textual, justificando a escolha do TF-IDF pela sua capacidade de ponderar a importância relativa das palavras.
-- A etapa de **GridSearchCV** demonstra boas práticas de otimização de modelos, evitando ajuste manual de hiperparâmetros.
-- O modelo vencedor (**SVM com kernel linear**, C=1) alcança **84% de acurácia** e F1-scores equilibrados entre as classes (~0,84 e ~0,83), indicando boa generalização mesmo com o dataset reduzido.
+1. O projeto introduz um **cenário de desbalanceamento de classes** (9.000 positivos × 1.000 negativos);
+2. A comparação entre **CountVectorizer e TF-IDF**, com a escolha do TF-IDF pela sua capacidade de ponderar a importância relativa das palavras;
+3. Etapa de **GridSearchCV** na otimização de modelos, evitando ajuste manual de hiperparâmetros;
+4. O modelo vencedor (**SVM com kernel linear**, C=1) alcança **84% de acurácia** e F1-scores equilibrados entre as classes (~0,84 e ~0,83).
 
 ### Limitações Observadas
 
-- O pipeline não inclui etapas de **pré-processamento textual** mais sofisticadas, como remoção de HTML (visível em algumas entradas do dataset), lematização ou stemming, o que pode limitar a qualidade da vetorização.
-- A amostra de 10.000 registros, embora suficiente para fins didáticos, representa apenas 20% do dataset original, podendo subestimar o potencial dos modelos em escala completa.
-- Apenas algoritmos clássicos de ML são avaliados; abordagens baseadas em **embeddings** (Word2Vec, BERT, etc.) não são contempladas.
+1. A amostra de 10.000 registros, embora suficiente para fins didáticos, representa apenas 20% do dataset original, podendo subestimar o potencial dos modelos em escala completa;
+2. Apenas algoritmos clássicos de ML são avaliados... abordagens baseadas em **embeddings** (Word2Vec, BERT, etc.) não são analisadas.
 
 ---
 
 ## 2. Definição dos Ciclos AGEMC no Projeto FMF
 
-### ASK — Formulação do Problema:
+### ASK (Formulação do Problema):
 
 O ponto de partida do projeto FMF é a definição de uma pergunta objetiva:
 
@@ -83,9 +83,11 @@ Os dados utilizados provêm do **dataset IMDB de 50.000 críticas de filmes**, d
 
 Para viabilizar o treinamento em tempo razoável, é extraída uma amostra de **10.000 linhas** — intencionalmente desequilibrada, com 9.000 críticas positivas e 1.000 negativas... para introduzir a problemática de classes desbalanceadas nas etapas seguintes.
 
+Os dados estão disponíveis atráves do link: [Kaggle](https://www.kaggle.com/datasets/lakshmi25npathi/imdb-dataset-of-50k-movie-reviews)
+
 ---
 
-### EXPLORE (Exploração e Preparação dos Dados)
+### EXPLORE (Exploração e Preparação dos Dados):
 
 Esta etapa engloba três atividades principais:
 
