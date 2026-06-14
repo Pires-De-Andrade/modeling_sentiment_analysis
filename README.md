@@ -164,23 +164,30 @@ Com base nos estudos realizados no projeto FMF, foi decidido como *primeira idei
 
 ## 6. Cronograma de Desenvolvimento
  
-*Atualizado continuamente ao longo do progresso do projeto.*
+A proposta do Líder, João Guilherme, foi separar o desenvolvimento do projeto em duas fases: a primeira corresponde ao mapeamento do projeto FMF e à organização no modelo AGEMC; a segunda fase corresponde à definição do ciclo de divergência e à execução do projeto Original. Cada fase possui um o tempo de duas semanas, cada. Na quinta e última semana, (25/06 a 02/07), será organizada a apresentação do projeto em sala de aula: o que inclui refinamento do ciclo communicate, escolha de membros para a apresentação, elaboração de slides e resolução de eventuais problemas.
+
+Abaixo, está o status de cada tarefa das duas fases principais:
  
 **Fase 1**
  
 1. _Análise do Projeto FMF_
+
    a) status: `concluída`
-2. _Definição dos Ciclos AGEMC no Projeto FMF_
+3. _Definição dos Ciclos AGEMC no Projeto FMF_
+
    a) status: `concluída`
-3. _Execução do Projeto FMF_
-   a) status: `em progresso`
+5. _Execução do Projeto FMF_
+
+   a) status: `concluída`
 
 **Fase 2**
  
 4. _Definição do Ciclo de Divergência_
-   a) status: `em progresso`
-5. _Execução do Projeto Original_
-   a) status: `em progresso`
+
+   a) status: `em avaliação`
+6. _Execução do Projeto Original_
+
+   a) status: `não iniciada`
    
 ## **Desenvolvimento por Semana**
 
