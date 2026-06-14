@@ -6,7 +6,7 @@ Nas seções abaixo, é definido:
 
 1. [Análise do Projeto FMF](#1-análise-do-projeto-fmf): Finalizado
 2. [Definição dos Ciclos AGEMC no Projeto FMF](#2-definição-dos-ciclos-agemc-no-projeto-fmf): Finalizado
-3. [Execução do Projeto FMF](#3-execução-do-projeto-fmf): Em progresso...
+3. [Execução do Projeto FMF](#3-execução-do-projeto-fmf): Finalizado
 4. [Definição do Ciclo de Divergência](#4-definição-do-ciclo-de-divergência): Em progresso...
 5. [Execução do Projeto Original](#5-execução-do-projeto-original): Em progresso...
 6. [Cronograma de Desenvolvimento](#6-cronograma-de-desenvolvimento): Em progresso...
@@ -137,7 +137,9 @@ A comunicação dos resultados evidencia o SVM como a solução mais robusta par
 
 ## 3. Execução do Projeto FMF
 
-*A completar.*
+A partir do repositório oficial do autor, "thepycoach", reproduzimos os métodos, técnicas e resultados obtidos no projeto FMF. O objetivo da ação é estudar, com base numa execução prática, como o projeto foi modelado e como se aplicam de fato todas as ferramentas utilizadas.
+
+Sendo assim, neste repositório, ´modeling_sentiment_analysis`, foi criada a pasta "FMF", contendo um notebook Jupyter desenvolvido pelo autor do projeto.
 
 ---
 
@@ -172,7 +174,29 @@ A comunicação dos resultados evidencia o SVM como a solução mais robusta par
    a) status: `em progresso`
 5. _Execução do Projeto Original_
    a) status: `em progresso`
+   
+**Desenvolvimento por Semana**
+
+*Semana 1 (28/05 a 04/06)*
+- ´Finalizada´ -
+1. Foi atribuído a todos os membros a tarefa de ler e estudar o material disponibilizado, como um primeiro contato com o projeto que será desenvolvido nas próximas semanas.
+
+*Semana 2 (04/06 a 11/06)*
+- ´Finalizada´ -
+1. Foi atribuído aos membros a tarefa de organizar o projeto FMF, com base nos estudos da semana anterior, em um rascunho do que seria o ciclo de desevolvimento AGEMC;
+2. O trabalho individual foi discutido de forma coletiva com o objetivo de alcançar um consenso;
+3. A organização baseado no ciclo de desenvolvimento AGEMC foi definida.
+
+*Semana 3 (11/06 a 18/06)*
+- ´Em andamento´ -
+1. Foi atribuído ao líder João Guilherme a criação do repositório e a escrita do documento README. O objetivo é dar início ao desenvolvimento prático do projeto FMF e do projeto Original;
+2. Foi atribuído ao membro Gustavo Barros a execução do Projeto FMF a partir do repositório oficial de "thepycoah". O notebook foi adicionado na pasta "Projeto FMF";
+3. Foi atribuído aos membros a discussão sobre qual seria o ponto de divergência, com base no ciclo de desenvolvimento AGEMC, no projeto FMF que seria o fundamento para a criação do projeto Original;
+4. A primeira ideia levantada foi a mudança no ciclo `MODEL´, vinda a partir da segunda limitação observada durante os estudos da primeira semana. O objetivo inicial será adicionar modelos de embeddings, além do algoritmos clássicos de Machine Learning utilizados no projeto FMF;
+5. ´em andamento...´
+
 ---
+
 
 *Trabalho Final da Disciplina de Pensamento Analítico de Dados*
 *Bacharelado em Inteligência Artificial*
