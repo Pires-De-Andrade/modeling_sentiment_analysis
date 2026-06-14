@@ -207,15 +207,20 @@ Abaixo, está o status de cada tarefa das duas fases principais:
 2. Foi atribuído ao membro Gustavo Barros a execução do Projeto FMF a partir do repositório oficial de "thepycoah". O notebook foi adicionado na pasta "Projeto FMF";
 3. Foi atribuído aos membros a discussão sobre qual seria o ponto de divergência, com base no ciclo de desenvolvimento AGEMC, no projeto FMF que seria o fundamento para a criação do projeto Original;
 4. A primeira ideia levantada foi a mudança no ciclo `MODEL`, vinda a partir da segunda limitação observada durante os estudos da primeira semana. O objetivo inicial será adicionar modelos de embeddings, além do algoritmos clássicos de Machine Learning utilizados no projeto FMF;
-5. `em andamento...`
+5. ...
 
-## Status do Projeto
+### *Semana 4 (18/06 a 25/06)*
+- `Não iniciada` -
 
-_não finalizado_
+...
+  
+### *Semana 5 (25/06 a 02/07)*
+- `Não iniciada` -
 
----
+...
 
 
 *Trabalho Final da Disciplina de Pensamento Analítico de Dados*
+
 *Bacharelado em Inteligência Artificial*
 
