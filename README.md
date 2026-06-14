@@ -140,19 +140,19 @@ A comunicação dos resultados evidencia o SVM como a solução mais robusta par
 
 A partir do repositório oficial do autor, "thepycoach", reproduzimos os métodos, técnicas e resultados obtidos no projeto FMF. O objetivo da ação é estudar, com base numa execução prática, como o projeto foi modelado e como se aplicam de fato todas as ferramentas utilizadas.
 
-Sendo assim, neste repositório, ´modeling_sentiment_analysis`, foi criada a pasta "FMF", contendo um notebook Jupyter desenvolvido pelo autor do projeto.
+Sendo assim, neste repositório, `modeling_sentiment_analysis`, foi criada a pasta "FMF", contendo um notebook Jupyter desenvolvido pelo autor do projeto.
 
 ---
 
 ## 4. Definição do Ciclo de Divergência
 
-Com base nos estudos realizados no projeto FMF, foi decidido como *primeira ideia* o ciclo ´MODEL´ como ciclo de divergência. A escolha foi fundamentada na escolha de apenas algoritmos clássicos de Machine Learning no benchmark realizado pelo projeto. A proposta é avaliar como algoritmos de embeddings se comportam, de forma comparativa, na tarefa de análise de sentimento em críticas cinematogáficas.
+Com base nos estudos realizados no projeto FMF, foi decidido como *primeira ideia* o ciclo `MODEL` como ciclo de divergência. A escolha foi fundamentada na escolha de apenas algoritmos clássicos de Machine Learning no benchmark realizado pelo projeto. A proposta é avaliar como algoritmos de embeddings se comportam, de forma comparativa, na tarefa de análise de sentimento em críticas cinematogáficas.
 
 ### Observações Importantes:
 
-1. ´Limites´: no ciclo GET, apenas uma parte dos dados foi escolhida para a realização da tarefa. Como o projeto original deve ser desenvolvido a partir do ciclo de divergência escolhido, apenas essa parte dos dados será usada. Isso implica, naturalmente, em dúvidas sobre o desempenho de um modelo de embeddings com tão poucos dados;
-2. ´Compatibilidade com a Ideia´: a pergunta de pesquisa, do projeto FMF, é: **"Qual modelo de Machine Learning melhor se enquadra na análise de sentimentos (output) dado a crítica de uum filme (input)?"**. Tendo em vista que em "Modelos de Machine Learning" também estão incluídos Modelos de Embeddings, o time avaliou que a ideia é compatível;
-3. ´Processo não-Linear´: devido ao limite citado acima, entende-se que o processo por não ser bem sucedido. Caso isso aconteça, um novo ciclo de divergência será escolhido... o que configura a não-linearidade de um projeto, conforme o modelo AGEMC;
+1. `Limites`: no ciclo GET, apenas uma parte dos dados foi escolhida para a realização da tarefa. Como o projeto original deve ser desenvolvido a partir do ciclo de divergência escolhido, apenas essa parte dos dados será usada. Isso implica, naturalmente, em dúvidas sobre o desempenho de um modelo de embeddings com tão poucos dados;
+2. `Compatibilidade com a Ideia`: a pergunta de pesquisa, do projeto FMF, é: **"Qual modelo de Machine Learning melhor se enquadra na análise de sentimentos (output) dado a crítica de uum filme (input)?"**. Tendo em vista que em "Modelos de Machine Learning" também estão incluídos Modelos de Embeddings, o time avaliou que a ideia é compatível;
+3. `Processo não-Linear`: devido ao limite citado acima, entende-se que o processo por não ser bem sucedido. Caso isso aconteça, um novo ciclo de divergência será escolhido... o que configura a não-linearidade de um projeto, conforme o modelo AGEMC;
 
 ---
 
@@ -185,22 +185,22 @@ Com base nos estudos realizados no projeto FMF, foi decidido como *primeira idei
 ## **Desenvolvimento por Semana**
 
 ### *Semana 1 (28/05 a 04/06)*
-- ´Finalizada´ -
+- `Finalizada` -
 1. Foi atribuído a todos os membros a tarefa de ler e estudar o material disponibilizado, como um primeiro contato com o projeto que será desenvolvido nas próximas semanas.
 
 ### *Semana 2 (04/06 a 11/06)*
-- ´Finalizada´ -
+- `Finalizada` -
 1. Foi atribuído aos membros a tarefa de organizar o projeto FMF, com base nos estudos da semana anterior, em um rascunho do que seria o ciclo de desevolvimento AGEMC;
 2. O trabalho individual foi discutido de forma coletiva com o objetivo de alcançar um consenso;
 3. A organização baseado no ciclo de desenvolvimento AGEMC foi definida.
 
 ### *Semana 3 (11/06 a 18/06)*
-- ´Em andamento´ -
+- `Em andamento` -
 1. Foi atribuído ao líder João Guilherme a criação do repositório e a escrita do documento README. O objetivo é dar início ao desenvolvimento prático do projeto FMF e do projeto Original;
 2. Foi atribuído ao membro Gustavo Barros a execução do Projeto FMF a partir do repositório oficial de "thepycoah". O notebook foi adicionado na pasta "Projeto FMF";
 3. Foi atribuído aos membros a discussão sobre qual seria o ponto de divergência, com base no ciclo de desenvolvimento AGEMC, no projeto FMF que seria o fundamento para a criação do projeto Original;
-4. A primeira ideia levantada foi a mudança no ciclo `MODEL´, vinda a partir da segunda limitação observada durante os estudos da primeira semana. O objetivo inicial será adicionar modelos de embeddings, além do algoritmos clássicos de Machine Learning utilizados no projeto FMF;
-5. ´em andamento...´
+4. A primeira ideia levantada foi a mudança no ciclo `MODEL`, vinda a partir da segunda limitação observada durante os estudos da primeira semana. O objetivo inicial será adicionar modelos de embeddings, além do algoritmos clássicos de Machine Learning utilizados no projeto FMF;
+5. `em andamento...`
 
 ## Status do Projeto
 
