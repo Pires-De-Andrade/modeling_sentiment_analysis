@@ -165,7 +165,8 @@ A partir do ciclo de divergência definido na Seção 4, o projeto Original mant
 As execuções estão registradas em dois notebooks na pasta `Original/`:
 
 1. `Sentiment Analysis with Embeddings (Original).ipynb` — execução **local em GPU**, sobre a amostra reduzida de **2.000 registros** (1000/1000), idêntica em dados ao FMF;
-2. `Sentiment_Analysis_with_Embeddings_(Original, 10k dados).ipynb` — execução **em escala no Google Colab**, sobre **20.000 registros** (10.000/10.000).
+2. `Sentiment_Analysis_with_Embeddings_(Original, 10k dados).ipynb` — execução **em escala no Google Colab**, sobre **20.000 registros** (10.000/10.000);
+3. `Sentiment_Analysis_with_RoBERTa_(Fine_tuning).ipynb` — experimento **complementar de fine-tuning** (RoBERTa-base), também em escala (20k) no Google Colab.
 
 ### Representações comparadas
 
@@ -214,9 +215,22 @@ Três observações emergem dessa comparação:
 2. **Os embeddings permanecem estáveis e mais confiáveis.** BGE-large e BGE-M3 variam pouco (queda de ~0,5 a 1 ponto). Essa leve redução não indica piora real: o conjunto de teste de 20k (6.600 exemplos) é dez vezes maior que o de 2k (660), tornando a estimativa de ~0,944 **menos sujeita a variância** que o 0,950 da amostra pequena.
 3. **A vantagem dos embeddings diminui, mas se mantém.** A diferença entre o melhor embedding e o melhor método lexical cai de ~0,11 (2k) para ~0,07 (20k) — os embeddings densos continuam à frente, e a hierarquia entre os modelos (BGE-large > BGE-M3 > BM25 ≈ TF-IDF) se mantém em ambas as escalas.
 
+### Fine-tuning (RoBERTa)
+
+As abordagens acima usam os modelos como extratores de *features* **congeladas**. Como experimento complementar, o ciclo `MODEL` foi levado adiante com **fine-tuning** do `RoBERTa-base` — ajustando todos os pesos da rede à tarefa, em vez de apenas extrair vetores. A execução foi feita no Google Colab (GPU), sobre os mesmos 20.000 registros e a mesma divisão treino/teste, com truncamento em 512 tokens (limite arquitetural do RoBERTa).
+
+| Abordagem (20k) | Melhor F1 macro |
+|---|---|
+| TF-IDF / BM25 (lexical) | ~0,877 |
+| BGE-M3 (congelado) | 0,920 |
+| BGE-large (congelado) | 0,944 |
+| RoBERTa-base (fine-tuning) | **0,950** |
+
+O fine-tuning **assume a liderança** (0,950), mas por margem modesta sobre o melhor embedding congelado (~0,6 ponto), ao custo de ~21 min de treino contra segundos do classificador linear — o que reforça o bom custo-benefício das *features* congeladas.
+
 ### Conclusão do ciclo
 
-Respondendo à pergunta de pesquisa do projeto FMF — *"Qual modelo de Machine Learning melhor se enquadra na análise de sentimentos?"* — sob a ótica do ciclo de divergência, a resposta é que a **escolha da representação textual importa tanto quanto a escolha do classificador**: trocar o TF-IDF por um embedding denso especialista (BGE-large-en-v1.5) elevou o F1 macro de 0,841 para 0,950 na amostra reduzida, mantendo todo o restante do pipeline inalterado. Esse resultado se mostrou **robusto à escala**: na execução com 20.000 registros, os embeddings densos seguiram à frente dos métodos lexicais (~0,944 contra ~0,877), confirmando a viabilidade da abordagem mesmo com volume reduzido de dados.
+Respondendo à pergunta de pesquisa do projeto FMF — *"Qual modelo de Machine Learning melhor se enquadra na análise de sentimentos?"* — sob a ótica do ciclo de divergência, a resposta é que a **escolha da representação textual importa tanto quanto a escolha do classificador**: trocar o TF-IDF por um embedding denso especialista (BGE-large-en-v1.5) elevou o F1 macro de 0,841 para 0,950 na amostra reduzida, mantendo todo o restante do pipeline inalterado. Esse resultado se mostrou **robusto à escala**: na execução com 20.000 registros, os embeddings densos seguiram à frente dos métodos lexicais (~0,944 contra ~0,877), confirmando a viabilidade da abordagem mesmo com volume reduzido de dados. Por fim, levar o ciclo `MODEL` ao **fine-tuning** (RoBERTa-base) liderou a comparação (0,950 em 20k), porém por margem estreita sobre os embeddings congelados — situando o trabalho como uma exploração de custo-benefício entre métodos lexicais, embeddings congelados e fine-tuning.
 
 ---
 
@@ -265,17 +279,18 @@ Abaixo, está o status de cada tarefa das duas fases principais:
 2. Foi atribuído ao membro Gustavo Barros a execução do Projeto FMF a partir do repositório oficial de "thepycoach". O notebook foi adicionado na pasta "FMF";
 3. Foi atribuído aos membros a discussão sobre qual seria o ponto de divergência, com base no ciclo de desenvolvimento AGEMC, no projeto FMF que seria o fundamento para a criação do projeto Original;
 4. A primeira ideia levantada foi a mudança no ciclo `MODEL`, vinda a partir da segunda limitação observada durante os estudos da primeira semana. O objetivo inicial será adicionar modelos de embeddings, além do algoritmos clássicos de Machine Learning utilizados no projeto FMF;
-5. ...
 
 ### *Semana 4 (18/06 a 25/06)* — *última semana*
 - `Em andamento` -
 1. Finalização da execução do projeto Original (ciclo de divergência `MODEL`);
-2. Reexecução do notebook de embeddings em GPU local (amostra de 2.000 registros), com resultados reproduzíveis salvos no repositório;
-3. Execução em escala (10.000/10.000 = 20.000 registros) no Google Colab, por Gustavo Barros;
-4. Atualização da Seção 5 do README com a metodologia, os resultados e a comparação entre as duas escalas;
-5. Refinamento do ciclo COMMUNICATE com base nos resultados obtidos;
-6. Elaboração dos slides e escolha dos membros para a apresentação;
-7. Apresentação do projeto em sala de aula no dia 25/06.
+2. Implementação da mudança no ciclo `MODEL` (substituição do TF-IDF por embeddings: BM25, BGE-large e BGE-M3), por Felipe Albernaz;
+3. Reexecução do notebook de embeddings em GPU local (amostra de 2.000 registros), com resultados reproduzíveis salvos no repositório;
+4. Execução em escala (10.000/10.000 = 20.000 registros) no Google Colab, por Gustavo Barros;
+5. Experimento de fine-tuning do RoBERTa-base no Colab, por Gustavo Leite, estendendo o ciclo MODEL além das representações congeladas;
+6. Atualização da Seção 5 do README com a metodologia, os resultados e a comparação entre as duas escalas;
+7. Refinamento do ciclo COMMUNICATE com base nos resultados obtidos;
+8. Elaboração dos slides e escolha dos membros para a apresentação;
+9. Apresentação do projeto em sala de aula no dia 25/06.
 
 
 *Trabalho Final da Disciplina de Pensamento Analítico de Dados*
