@@ -158,7 +158,43 @@ Com base nos estudos realizados no projeto FMF, foi decidido como *primeira idei
 
 ## 5. Execução do Projeto Original
 
-*A completar.*
+A partir do ciclo de divergência definido na Seção 4, o projeto Original mantém **exatamente o mesmo problema, os mesmos dados e os mesmos classificadores finais** do projeto FMF, alterando apenas o ciclo `MODEL` — mais especificamente, a **representação textual**. Em vez de converter as críticas apenas com TF-IDF, comparamos quatro formas de representar o texto, da mais lexical à mais semântica, e medimos o impacto dessa troca no desempenho da classificação de sentimento.
+
+O notebook correspondente está em `Original/Sentiment Analysis with Embeddings (Original).ipynb`.
+
+### Representações comparadas
+
+1. `TF-IDF` — reproduz a linha de base do FMF (frequência de termos ponderada).
+2. `BM25` — baseline lexical mais forte que o TF-IDF (saturação de frequência de termo + normalização por comprimento do documento).
+3. `BGE-large-en-v1.5` — embedding denso **especialista em inglês**, com janela de contexto de **512 tokens** (críticas mais longas são truncadas).
+4. `BGE-M3` — embedding denso **multilíngue de contexto longo** (até **8192 tokens**), capaz de ler a crítica inteira sem truncar.
+
+### Metodologia
+
+Para isolar a variável "representação textual", todas as quatro representações alimentam **os mesmos dois classificadores** — `SVM (linear, C=1)` e `Regressão Logística` — sobre **o mesmo conjunto de dados balanceado (1000/1000)** e a **mesma divisão treino/teste** (67%/33%, com semente fixa) usados no FMF. Os embeddings densos (BGE) são gerados uma única vez por modelo e usados como vetores de entrada (features) para os classificadores clássicos, sem qualquer ajuste fino (*fine-tuning*) das redes. A métrica principal de comparação é o **F1 macro**, coerente com o ciclo COMMUNICATE do FMF.
+
+### Resultados
+
+A tabela abaixo apresenta o F1 macro de cada representação, por classificador, e o melhor resultado de cada uma:
+
+| Representação | SVM (linear) | Regressão Logística | Melhor F1 macro |
+|---|---|---|---|
+| TF-IDF (baseline FMF) | 0,841 | 0,830 | **0,841** |
+| BM25 | 0,845 | 0,851 | **0,851** |
+| BGE-M3 | 0,927 | 0,930 | **0,930** |
+| BGE-large-en-v1.5 | 0,949 | 0,950 | **0,950** |
+
+### Análise
+
+1. **Os embeddings densos superam os métodos lexicais com folga.** O melhor embedding (BGE-large) alcança **0,950** de F1 macro contra **0,841** do TF-IDF do FMF — um salto de aproximadamente **11 pontos** —, confirmando a hipótese que motivou o ciclo de divergência.
+2. **O especialista em inglês vence o multilíngue.** O BGE-large-en-v1.5 (0,950) supera o BGE-M3 (0,930) mesmo truncando em 512 tokens. Como o dataset IMDB é integralmente em inglês, o modelo dedicado à língua leva vantagem sobre o multilíngue, e ler a crítica inteira (contexto longo do BGE-M3) não compensou esse ganho de especialização.
+3. **BM25 e TF-IDF ficam próximos e no piso da comparação** (0,851 e 0,841). Por serem ambos lexicais (*bag of words*), não capturam significado, o que evidencia que o ganho dos embeddings vem da **semântica**, e não apenas de uma técnica de ponderação melhor.
+4. **O risco de "poucos dados" não se concretizou.** Mesmo com apenas 2000 registros (a mesma amostra reduzida do FMF), os embeddings pré-treinados — usados como features fixas, sem *fine-tuning* — já entregam ~0,95 de F1 macro. Isso atenua diretamente a preocupação levantada na Seção 4 sobre o desempenho de modelos de embeddings com volume reduzido de dados.
+5. **A Regressão Logística foi o melhor classificador em três das quatro representações** (BM25, BGE-M3 e BGE-large), perdendo apenas no TF-IDF, e por margem mínima. Isso reforça que, sobre embeddings, um classificador linear simples já é suficiente para extrair o sinal de sentimento.
+
+### Conclusão do ciclo
+
+Respondendo à pergunta de pesquisa do projeto FMF — *"Qual modelo de Machine Learning melhor se enquadra na análise de sentimentos?"* — sob a ótica do ciclo de divergência, a resposta é que a **escolha da representação textual importa tanto quanto a escolha do classificador**: trocar o TF-IDF por um embedding denso especialista (BGE-large-en-v1.5) elevou o F1 macro de 0,841 para 0,950, mantendo todo o restante do pipeline inalterado.
 
 ---
 
