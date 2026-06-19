@@ -7,8 +7,8 @@ Nas seções abaixo, é definido:
 1. [Análise do Projeto FMF](#1-análise-do-projeto-fmf): *Finalizado*
 2. [Definição dos Ciclos AGEMC no Projeto FMF](#2-definição-dos-ciclos-agemc-no-projeto-fmf): *Finalizado*
 3. [Execução do Projeto FMF](#3-execução-do-projeto-fmf): *Finalizado*
-4. [Definição do Ciclo de Divergência](#4-definição-do-ciclo-de-divergência): _Em avaliação_
-5. [Execução do Projeto Original](#5-execução-do-projeto-original): _não iniciado_
+4. [Definição do Ciclo de Divergência](#4-definição-do-ciclo-de-divergência): *Finalizado*
+5. [Execução do Projeto Original](#5-execução-do-projeto-original): _Em andamento_
 6. [Cronograma de Desenvolvimento](#6-cronograma-de-desenvolvimento): *contínuo*
 7. [Desenvolvimento por Semana](#7-desenvolvimento-por-semana): *contínuo*
 
@@ -184,10 +184,10 @@ Abaixo, está o status de cada tarefa das duas fases principais:
  
 4. _Definição do Ciclo de Divergência_
 
-   a) status: `em avaliação`
+   a) status: `concluída`
 6. _Execução do Projeto Original_
 
-   a) status: `não iniciada`
+   a) status: `em andamento`
    
 ## **Desenvolvimento por Semana**
 
@@ -202,7 +202,7 @@ Abaixo, está o status de cada tarefa das duas fases principais:
 3. A organização baseado no ciclo de desenvolvimento AGEMC foi definida.
 
 ### *Semana 3 (11/06 a 18/06)*
-- `Em andamento` -
+- `Finalizada` -
 1. Foi atribuído ao líder João Guilherme a criação do repositório e a escrita do documento README. O objetivo é dar início ao desenvolvimento prático do projeto FMF e do projeto Original;
 2. Foi atribuído ao membro Gustavo Barros a execução do Projeto FMF a partir do repositório oficial de "thepycoah". O notebook foi adicionado na pasta "Projeto FMF";
 3. Foi atribuído aos membros a discussão sobre qual seria o ponto de divergência, com base no ciclo de desenvolvimento AGEMC, no projeto FMF que seria o fundamento para a criação do projeto Original;
@@ -210,7 +210,7 @@ Abaixo, está o status de cada tarefa das duas fases principais:
 5. ...
 
 ### *Semana 4 (18/06 a 25/06)* — *última semana*
-- `Não iniciada` -
+- `Em andamento` -
 1. Finalização da execução do projeto Original (ciclo de divergência `MODEL`);
 2. Refinamento do ciclo COMMUNICATE com base nos resultados obtidos;
 3. Elaboração dos slides e escolha dos membros para a apresentação;
