@@ -16,7 +16,7 @@ Nas seções abaixo, é definido:
 
 ## 1. Análise do Projeto FMF
 
-O projeto FMF é um guia prático de construção de um modelo de aprendizado de máquina voltado para **análise de sentimentos em críticas de filmes**, desenvolvido com a linguagem Python e a ferramenta **scikit-learn** (sklearn). Seu objetivo é analisar qual modelo de Machine Learning melhor se enquadra na análise de sentimentos (output) dado a crítica de uum filme (input).
+O projeto FMF é um guia prático de construção de um modelo de aprendizado de máquina voltado para **análise de sentimentos em críticas de filmes**, desenvolvido com a linguagem Python e a ferramenta **scikit-learn** (sklearn). Seu objetivo é analisar qual modelo de Machine Learning melhor se enquadra na análise de sentimentos (output) dado a crítica de um filme (input).
 
 O projeto original, desenvolvido por "thepycoach", pode ser encontrado atráves do link ao seu repositório: [GitHub do Autor](https://github.com/thepycoach/data-science-projects/blob/main/Sklearn%20Tutorial%20(Binary%20Text%20Classification).ipynb)
 
@@ -64,7 +64,7 @@ O projeto segue uma pipeline bem delimitada, composta pelas seguintes etapas:
 
 ### ASK (Formulação do Problema):
 
-O ponto de partida do projeto FMF é a definição da pergunta: **"Qual modelo de Machine Learning melhor se enquadra na análise de sentimentos (output) dado a crítica de uum filme (input)?"**
+O ponto de partida do projeto FMF é a definição da pergunta: **"Qual modelo de Machine Learning melhor se enquadra na análise de sentimentos (output) dado a crítica de um filme (input)?"**
 
 Classificamos o problema como classificação binária de texto (binary text classification), em que a entrada (input) é o texto da crítica e a saída (output) é o rótulo de sentimento, sendo positivo ou negativo. A escolha desse problema justifica o uso de algoritmos supervisionados, conforme heurísticas, pois tanto as variáveis de entrada quanto as de saída são bem identificadas e rotuladas.
 
@@ -151,7 +151,7 @@ Com base nos estudos realizados no projeto FMF, foi decidido como *primeira idei
 ### Observações Importantes:
 
 1. `Limites`: no ciclo GET, apenas uma parte dos dados foi escolhida para a realização da tarefa. Como o projeto original deve ser desenvolvido a partir do ciclo de divergência escolhido, apenas essa parte dos dados será usada. Isso implica, naturalmente, em dúvidas sobre o desempenho de um modelo de embeddings com tão poucos dados;
-2. `Compatibilidade com a Ideia`: a pergunta de pesquisa, do projeto FMF, é: **"Qual modelo de Machine Learning melhor se enquadra na análise de sentimentos (output) dado a crítica de uum filme (input)?"**. Tendo em vista que em "Modelos de Machine Learning" também estão incluídos Modelos de Embeddings, o time avaliou que a ideia é compatível;
+2. `Compatibilidade com a Ideia`: a pergunta de pesquisa, do projeto FMF, é: **"Qual modelo de Machine Learning melhor se enquadra na análise de sentimentos (output) dado a crítica de um filme (input)?"**. Tendo em vista que em "Modelos de Machine Learning" também estão incluídos Modelos de Embeddings, o time avaliou que a ideia é compatível;
 3. `Processo não-Linear`: devido ao limite citado acima, entende-se que o processo por não ser bem sucedido. Caso isso aconteça, um novo ciclo de divergência será escolhido... o que configura a não-linearidade de um projeto, conforme o modelo AGEMC;
 
 ---

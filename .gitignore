@@ -1,2 +1,20 @@
-/.venv
-.csv
+# Ambientes virtuais
+venv/
+.venv/
+env/
+ENV/
+
+# Python
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# Dados pesados (baixar via Kaggle)
+*.csv
+*.zip
+
+# Sistema / IDE
+.DS_Store
+.vscode/
+.idea/
+.env
