@@ -164,7 +164,7 @@ Com base nos estudos realizados no projeto FMF, foi decidido como *primeira idei
 
 ## 6. Cronograma de Desenvolvimento
  
-A proposta do Líder, João Guilherme, foi separar o desenvolvimento do projeto em duas fases: a primeira corresponde ao mapeamento do projeto FMF e à organização no modelo AGEMC; a segunda fase corresponde à definição do ciclo de divergência e à execução do projeto Original. Cada fase possui um o tempo de duas semanas, cada. Na quinta e última semana, (25/06 a 02/07), será organizada a apresentação do projeto em sala de aula: o que inclui refinamento do ciclo communicate, escolha de membros para a apresentação, elaboração de slides e resolução de eventuais problemas.
+A proposta do Líder, João Guilherme, foi separar o desenvolvimento do projeto em duas fases: a primeira corresponde ao mapeamento do projeto FMF e à organização no modelo AGEMC; a segunda fase corresponde à definição do ciclo de divergência e à execução do projeto Original. Cada fase possui o tempo de duas semanas, cada. Na quarta e última semana (18/06 a 25/06), além da finalização da execução do projeto Original, será organizada a apresentação do projeto em sala de aula, no dia 25/06: o que inclui refinamento do ciclo communicate, escolha de membros para a apresentação, elaboração de slides e resolução de eventuais problemas.
 
 Abaixo, está o status de cada tarefa das duas fases principais:
  
@@ -209,15 +209,12 @@ Abaixo, está o status de cada tarefa das duas fases principais:
 4. A primeira ideia levantada foi a mudança no ciclo `MODEL`, vinda a partir da segunda limitação observada durante os estudos da primeira semana. O objetivo inicial será adicionar modelos de embeddings, além do algoritmos clássicos de Machine Learning utilizados no projeto FMF;
 5. ...
 
-### *Semana 4 (18/06 a 25/06)*
+### *Semana 4 (18/06 a 25/06)* — *última semana*
 - `Não iniciada` -
-
-...
-  
-### *Semana 5 (25/06 a 02/07)*
-- `Não iniciada` -
-
-...
+1. Finalização da execução do projeto Original (ciclo de divergência `MODEL`);
+2. Refinamento do ciclo COMMUNICATE com base nos resultados obtidos;
+3. Elaboração dos slides e escolha dos membros para a apresentação;
+4. Apresentação do projeto em sala de aula no dia 25/06.
 
 
 *Trabalho Final da Disciplina de Pensamento Analítico de Dados*
