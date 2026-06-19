@@ -1,6 +1,6 @@
 # modeling_sentiment_analysis
 
-O objetivo desse repositório é a elaboração, condução e execução do trabalho final da Disciplina de Pensamento Analítico de Dados. Aos integrantes (**Felipe Albernaz**, **Gustavo Leite**, **Gustavo Barros** e **João Andrade**), foi endereçado um projeto de análise de sentimentos (denominado FMF). A esse respeito, tendo em vista que todo projeto de ciência de dados segue uma estrutura concisa dentro do modelo AGEMC (**ASK, GET, EXPLORE, MODEL e COMMUNICATE**), foi feita a seguinte proposta: dentre os ciclos de ASK, GET, EXPLORE, MODEL e COMMUNICATE presentes no projeto FMF apresentado, o grupo deve escolher um dos ciclos para ser alterado, desenvolvendo um projeto distinto nos ciclos subsequentes.
+O objetivo desse repositório é a elaboração, condução e execução do trabalho final da Disciplina de Pensamento Analítico de Dados. Aos integrantes (**Felipe Albernaz**, **Gustavo Leite**, **Gustavo Barros** e **João Guilherme**), foi endereçado um projeto de análise de sentimentos (denominado FMF). A esse respeito, tendo em vista que todo projeto de ciência de dados segue uma estrutura concisa dentro do modelo AGEMC (**ASK, GET, EXPLORE, MODEL e COMMUNICATE**), foi feita a seguinte proposta: dentre os ciclos de ASK, GET, EXPLORE, MODEL e COMMUNICATE presentes no projeto FMF apresentado, o grupo deve escolher um dos ciclos para ser alterado, desenvolvendo um projeto distinto nos ciclos subsequentes.
 
 Nas seções abaixo, é definido:
 
@@ -18,7 +18,7 @@ Nas seções abaixo, é definido:
 
 O projeto FMF é um guia prático de construção de um modelo de aprendizado de máquina voltado para **análise de sentimentos em críticas de filmes**, desenvolvido com a linguagem Python e a ferramenta **scikit-learn** (sklearn). Seu objetivo é analisar qual modelo de Machine Learning melhor se enquadra na análise de sentimentos (output) dado a crítica de um filme (input).
 
-O projeto original, desenvolvido por "thepycoach", pode ser encontrado atráves do link ao seu repositório: [GitHub do Autor](https://github.com/thepycoach/data-science-projects/blob/main/Sklearn%20Tutorial%20(Binary%20Text%20Classification).ipynb)
+O projeto original, desenvolvido por "thepycoach", pode ser encontrado através do link ao seu repositório: [GitHub do Autor](https://github.com/thepycoach/data-science-projects/blob/main/Sklearn%20Tutorial%20(Binary%20Text%20Classification).ipynb)
 
 ### Contexto
 
@@ -32,8 +32,8 @@ O problema tratado é de **classificação binária de texto**: dado o texto de 
 
 O projeto FMF usa as seguintes bibliotecas: 
 1. `pandas` para a leitura, manipulação e amostragem do dataset;
-2. `imblearn` para o tratamento de desbalancamento de classes via undersampling;
-3. `sckit-learn` para a vetorização de texto, treinamento de modelos, avaliação e tuning.
+2. `imblearn` para o tratamento de desbalanceamento de classes via undersampling;
+3. `scikit-learn` para a vetorização de texto, treinamento de modelos, avaliação e tuning.
 
 ### Estrutura Geral do Pipeline
 
@@ -75,11 +75,11 @@ Classificamos o problema como classificação binária de texto (binary text cla
 Os dados utilizados provêm do dataset IMDB de 50.000 críticas de filmes, disponibilizado publicamente na plataforma Kaggle. O dataset possui duas colunas: 
 
 1. `review`: texto da crítica escrita pelo usuário;
-2. `sentimet`: rótulo de sentimento como positivo ou negativo.
+2. `sentiment`: rótulo de sentimento como positivo ou negativo.
 
 Para viabilizar o treinamento em tempo razoável, é extraída uma amostra de 10.000 linhas — intencionalmente desequilibrada, com 9.000 críticas positivas e 1.000 negativas... para introduzir a problemática de classes desbalanceadas nas etapas seguintes.
 
-Os dados estão disponíveis atráves do link: [Kaggle](https://www.kaggle.com/datasets/lakshmi25npathi/imdb-dataset-of-50k-movie-reviews)
+Os dados estão disponíveis através do link: [Kaggle](https://www.kaggle.com/datasets/lakshmi25npathi/imdb-dataset-of-50k-movie-reviews)
 
 ---
 
@@ -146,13 +146,15 @@ Sendo assim, neste repositório, `modeling_sentiment_analysis`, foi criada a pas
 
 ## 4. Definição do Ciclo de Divergência
 
-Com base nos estudos realizados no projeto FMF, foi decidido como *primeira ideia* o ciclo `MODEL` como ciclo de divergência. A escolha foi fundamentada na escolha de apenas algoritmos clássicos de Machine Learning no benchmark realizado pelo projeto. A proposta é avaliar como algoritmos de embeddings se comportam, de forma comparativa, na tarefa de análise de sentimento em críticas cinematogáficas.
+Com base nos estudos realizados no projeto FMF, foi decidido como *primeira ideia* o ciclo `MODEL` como ciclo de divergência. A escolha foi fundamentada na escolha de apenas algoritmos clássicos de Machine Learning no benchmark realizado pelo projeto. A proposta é avaliar como algoritmos de embeddings se comportam, de forma comparativa, na tarefa de análise de sentimento em críticas cinematográficas.
 
 ### Observações Importantes:
 
 1. `Limites`: no ciclo GET, apenas uma parte dos dados foi escolhida para a realização da tarefa. Como o projeto original deve ser desenvolvido a partir do ciclo de divergência escolhido, apenas essa parte dos dados será usada. Isso implica, naturalmente, em dúvidas sobre o desempenho de um modelo de embeddings com tão poucos dados;
 2. `Compatibilidade com a Ideia`: a pergunta de pesquisa, do projeto FMF, é: **"Qual modelo de Machine Learning melhor se enquadra na análise de sentimentos (output) dado a crítica de um filme (input)?"**. Tendo em vista que em "Modelos de Machine Learning" também estão incluídos Modelos de Embeddings, o time avaliou que a ideia é compatível;
-3. `Processo não-Linear`: devido ao limite citado acima, entende-se que o processo por não ser bem sucedido. Caso isso aconteça, um novo ciclo de divergência será escolhido... o que configura a não-linearidade de um projeto, conforme o modelo AGEMC;
+3. `Processo não-Linear`: devido ao limite citado acima, entende-se que o processo pode não ser bem sucedido. Caso isso aconteça, um novo ciclo de divergência será escolhido... o que configura a não-linearidade de um projeto, conforme o modelo AGEMC;
+
+> **Atualização (pós-execução):** o risco de desempenho com poucos dados (item 1) foi investigado na prática. Além da amostra reduzida de 2.000 registros, o projeto Original foi reexecutado em escala, com 20.000 registros (ver Seção 5). Os resultados confirmaram a viabilidade dos modelos de embeddings em ambas as escalas, de modo que **não foi necessário escolher um novo ciclo de divergência** (item 3).
 
 ---
 
@@ -160,7 +162,10 @@ Com base nos estudos realizados no projeto FMF, foi decidido como *primeira idei
 
 A partir do ciclo de divergência definido na Seção 4, o projeto Original mantém **exatamente o mesmo problema, os mesmos dados e os mesmos classificadores finais** do projeto FMF, alterando apenas o ciclo `MODEL` — mais especificamente, a **representação textual**. Em vez de converter as críticas apenas com TF-IDF, comparamos quatro formas de representar o texto, da mais lexical à mais semântica, e medimos o impacto dessa troca no desempenho da classificação de sentimento.
 
-O notebook correspondente está em `Original/Sentiment Analysis with Embeddings (Original).ipynb`.
+As execuções estão registradas em dois notebooks na pasta `Original/`:
+
+1. `Sentiment Analysis with Embeddings (Original).ipynb` — execução **local em GPU**, sobre a amostra reduzida de **2.000 registros** (1000/1000), idêntica em dados ao FMF;
+2. `Sentiment_Analysis_with_Embeddings_(Original, 10k dados).ipynb` — execução **em escala no Google Colab**, sobre **20.000 registros** (10.000/10.000).
 
 ### Representações comparadas
 
@@ -192,9 +197,26 @@ A tabela abaixo apresenta o F1 macro de cada representação, por classificador,
 4. **O risco de "poucos dados" não se concretizou.** Mesmo com apenas 2000 registros (a mesma amostra reduzida do FMF), os embeddings pré-treinados — usados como features fixas, sem *fine-tuning* — já entregam ~0,95 de F1 macro. Isso atenua diretamente a preocupação levantada na Seção 4 sobre o desempenho de modelos de embeddings com volume reduzido de dados.
 5. **A Regressão Logística foi o melhor classificador em três das quatro representações** (BM25, BGE-M3 e BGE-large), perdendo apenas no TF-IDF, e por margem mínima. Isso reforça que, sobre embeddings, um classificador linear simples já é suficiente para extrair o sinal de sentimento.
 
+### Execução em escala (10k/10k)
+
+Para investigar diretamente o risco de "poucos dados" levantado na Seção 4, o projeto foi reexecutado em escala maior — **10.000 críticas por classe (20.000 no total)**, contra os 2.000 da execução local —, mantendo o mesmo pipeline (mesmos classificadores, mesma divisão 67%/33%). A tabela abaixo compara o melhor F1 macro de cada representação nas duas escalas:
+
+| Representação | Melhor F1 — 2k (local) | Melhor F1 — 20k (Colab) |
+|---|---|---|
+| TF-IDF (baseline FMF) | 0,841 | 0,876 |
+| BM25 | 0,851 | 0,877 |
+| BGE-M3 | 0,930 | 0,920 |
+| BGE-large-en-v1.5 | 0,950 | 0,944 |
+
+Três observações emergem dessa comparação:
+
+1. **Os métodos lexicais melhoram com mais dados.** TF-IDF e BM25 sobem cerca de 3 pontos de F1 macro (de ~0,84–0,85 para ~0,88), beneficiados pelo vocabulário maior e pelo maior número de exemplos.
+2. **Os embeddings permanecem estáveis e mais confiáveis.** BGE-large e BGE-M3 variam pouco (queda de ~0,5 a 1 ponto). Essa leve redução não indica piora real: o conjunto de teste de 20k (6.600 exemplos) é dez vezes maior que o de 2k (660), tornando a estimativa de ~0,944 **menos sujeita a variância** que o 0,950 da amostra pequena.
+3. **A vantagem dos embeddings diminui, mas se mantém.** A diferença entre o melhor embedding e o melhor método lexical cai de ~0,11 (2k) para ~0,07 (20k) — os embeddings densos continuam à frente, e a hierarquia entre os modelos (BGE-large > BGE-M3 > BM25 ≈ TF-IDF) se mantém em ambas as escalas.
+
 ### Conclusão do ciclo
 
-Respondendo à pergunta de pesquisa do projeto FMF — *"Qual modelo de Machine Learning melhor se enquadra na análise de sentimentos?"* — sob a ótica do ciclo de divergência, a resposta é que a **escolha da representação textual importa tanto quanto a escolha do classificador**: trocar o TF-IDF por um embedding denso especialista (BGE-large-en-v1.5) elevou o F1 macro de 0,841 para 0,950, mantendo todo o restante do pipeline inalterado.
+Respondendo à pergunta de pesquisa do projeto FMF — *"Qual modelo de Machine Learning melhor se enquadra na análise de sentimentos?"* — sob a ótica do ciclo de divergência, a resposta é que a **escolha da representação textual importa tanto quanto a escolha do classificador**: trocar o TF-IDF por um embedding denso especialista (BGE-large-en-v1.5) elevou o F1 macro de 0,841 para 0,950 na amostra reduzida, mantendo todo o restante do pipeline inalterado. Esse resultado se mostrou **robusto à escala**: na execução com 20.000 registros, os embeddings densos seguiram à frente dos métodos lexicais (~0,944 contra ~0,877), confirmando a viabilidade da abordagem mesmo com volume reduzido de dados.
 
 ---
 
@@ -209,23 +231,23 @@ Abaixo, está o status de cada tarefa das duas fases principais:
 1. _Análise do Projeto FMF_
 
    a) status: `concluída`
-3. _Definição dos Ciclos AGEMC no Projeto FMF_
+2. _Definição dos Ciclos AGEMC no Projeto FMF_
 
    a) status: `concluída`
-5. _Execução do Projeto FMF_
+3. _Execução do Projeto FMF_
 
    a) status: `concluída`
 
 **Fase 2**
  
-4. _Definição do Ciclo de Divergência_
+1. _Definição do Ciclo de Divergência_
 
    a) status: `concluída`
-6. _Execução do Projeto Original_
+2. _Execução do Projeto Original_
 
    a) status: `em andamento`
    
-## **Desenvolvimento por Semana**
+## 7. Desenvolvimento por Semana
 
 ### *Semana 1 (28/05 a 04/06)*
 - `Finalizada` -
@@ -233,14 +255,14 @@ Abaixo, está o status de cada tarefa das duas fases principais:
 
 ### *Semana 2 (04/06 a 11/06)*
 - `Finalizada` -
-1. Foi atribuído aos membros a tarefa de organizar o projeto FMF, com base nos estudos da semana anterior, em um rascunho do que seria o ciclo de desevolvimento AGEMC;
+1. Foi atribuído aos membros a tarefa de organizar o projeto FMF, com base nos estudos da semana anterior, em um rascunho do que seria o ciclo de desenvolvimento AGEMC;
 2. O trabalho individual foi discutido de forma coletiva com o objetivo de alcançar um consenso;
 3. A organização baseado no ciclo de desenvolvimento AGEMC foi definida.
 
 ### *Semana 3 (11/06 a 18/06)*
 - `Finalizada` -
 1. Foi atribuído ao líder João Guilherme a criação do repositório e a escrita do documento README. O objetivo é dar início ao desenvolvimento prático do projeto FMF e do projeto Original;
-2. Foi atribuído ao membro Gustavo Barros a execução do Projeto FMF a partir do repositório oficial de "thepycoah". O notebook foi adicionado na pasta "Projeto FMF";
+2. Foi atribuído ao membro Gustavo Barros a execução do Projeto FMF a partir do repositório oficial de "thepycoach". O notebook foi adicionado na pasta "FMF";
 3. Foi atribuído aos membros a discussão sobre qual seria o ponto de divergência, com base no ciclo de desenvolvimento AGEMC, no projeto FMF que seria o fundamento para a criação do projeto Original;
 4. A primeira ideia levantada foi a mudança no ciclo `MODEL`, vinda a partir da segunda limitação observada durante os estudos da primeira semana. O objetivo inicial será adicionar modelos de embeddings, além do algoritmos clássicos de Machine Learning utilizados no projeto FMF;
 5. ...
@@ -248,9 +270,12 @@ Abaixo, está o status de cada tarefa das duas fases principais:
 ### *Semana 4 (18/06 a 25/06)* — *última semana*
 - `Em andamento` -
 1. Finalização da execução do projeto Original (ciclo de divergência `MODEL`);
-2. Refinamento do ciclo COMMUNICATE com base nos resultados obtidos;
-3. Elaboração dos slides e escolha dos membros para a apresentação;
-4. Apresentação do projeto em sala de aula no dia 25/06.
+2. Reexecução do notebook de embeddings em GPU local (amostra de 2.000 registros), com resultados reproduzíveis salvos no repositório;
+3. Execução em escala (10.000/10.000 = 20.000 registros) no Google Colab, por Gustavo Barros;
+4. Atualização da Seção 5 do README com a metodologia, os resultados e a comparação entre as duas escalas;
+5. Refinamento do ciclo COMMUNICATE com base nos resultados obtidos;
+6. Elaboração dos slides e escolha dos membros para a apresentação;
+7. Apresentação do projeto em sala de aula no dia 25/06.
 
 
 *Trabalho Final da Disciplina de Pensamento Analítico de Dados*
