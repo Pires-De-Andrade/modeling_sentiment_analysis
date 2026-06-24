@@ -162,7 +162,7 @@ Com base nos estudos realizados no projeto FMF, foi decidido como *primeira idei
 
 A partir do ciclo de divergência definido na Seção 4, o projeto Original mantém **exatamente o mesmo problema, os mesmos dados e os mesmos classificadores finais** do projeto FMF, alterando apenas o ciclo `MODEL` — mais especificamente, a **representação textual**. Em vez de converter as críticas apenas com TF-IDF, comparamos quatro formas de representar o texto, da mais lexical à mais semântica, e medimos o impacto dessa troca no desempenho da classificação de sentimento.
 
-As execuções estão registradas em dois notebooks na pasta `Original/`:
+As execuções estão registradas em três notebooks na pasta `Original/`:
 
 1. `Sentiment Analysis with Embeddings (Original).ipynb` — execução **local em GPU**, sobre a amostra reduzida de **2.000 registros** (1000/1000), idêntica em dados ao FMF;
 2. `Sentiment_Analysis_with_Embeddings_(Original, 10k dados).ipynb` — execução **em escala no Google Colab**, sobre **20.000 registros** (10.000/10.000);
@@ -177,60 +177,81 @@ As execuções estão registradas em dois notebooks na pasta `Original/`:
 
 ### Metodologia
 
-Para isolar a variável "representação textual", todas as quatro representações alimentam **os mesmos dois classificadores** — `SVM (linear, C=1)` e `Regressão Logística` — sobre **o mesmo conjunto de dados balanceado (1000/1000)** e a **mesma divisão treino/teste** (67%/33%, com semente fixa) usados no FMF. Os embeddings densos (BGE) são gerados uma única vez por modelo e usados como vetores de entrada (features) para os classificadores clássicos, sem qualquer ajuste fino (*fine-tuning*) das redes. A métrica principal de comparação é o **F1 macro**, coerente com o ciclo COMMUNICATE do FMF.
+Para isolar a variável "representação textual", todas as quatro representações alimentam **os mesmos quatro classificadores do projeto FMF** — `SVM (linear, C=1)`, `Regressão Logística`, `Naive Bayes` e `Árvore de Decisão` — sobre **o mesmo conjunto de dados balanceado (1000/1000)** e a **mesma divisão treino/teste** (67%/33%, com semente fixa) usados no FMF. Os embeddings densos (BGE) são gerados uma única vez por modelo e usados como vetores de entrada (features) para os classificadores clássicos, sem qualquer ajuste fino (*fine-tuning*) das redes. A métrica principal de comparação é o **F1 macro**, coerente com o ciclo COMMUNICATE do FMF.
 
 ### Resultados
 
-A tabela abaixo apresenta o F1 macro de cada representação, por classificador, e o melhor resultado de cada uma:
+A tabela abaixo apresenta o F1 macro de cada representação, por classificador, e o melhor resultado de cada uma (execução local, **2.000 registros**):
 
-| Representação | SVM (linear) | Regressão Logística | Melhor F1 macro |
-|---|---|---|---|
-| TF-IDF (baseline FMF) | 0,841 | 0,830 | **0,841** |
-| BM25 | 0,845 | 0,851 | **0,851** |
-| BGE-M3 | 0,927 | 0,930 | **0,930** |
-| BGE-large-en-v1.5 | 0,949 | 0,950 | **0,950** |
+| Representação | SVM (linear) | Regressão Logística | Naive Bayes | Árvore de Decisão | Melhor F1 macro |
+|---|---|---|---|---|---|
+| TF-IDF (baseline FMF) | 0,841 | 0,830 | 0,632 | 0,642 | **0,841** |
+| BM25 | 0,845 | 0,851 | 0,635 | 0,636 | **0,851** |
+| BGE-large-en-v1.5 | 0,948 | 0,950 | 0,948 | 0,897 | **0,950** |
+| BGE-M3 | 0,927 | 0,930 | 0,912 | 0,810 | **0,930** |
 
 ### Análise
 
 1. **Os embeddings densos superam os métodos lexicais com folga.** O melhor embedding (BGE-large) alcança **0,950** de F1 macro contra **0,841** do TF-IDF do FMF — um salto de aproximadamente **11 pontos** —, confirmando a hipótese que motivou o ciclo de divergência.
 2. **O especialista em inglês vence o multilíngue.** O BGE-large-en-v1.5 (0,950) supera o BGE-M3 (0,930) mesmo truncando em 512 tokens. Como o dataset IMDB é integralmente em inglês, o modelo dedicado à língua leva vantagem sobre o multilíngue, e ler a crítica inteira (contexto longo do BGE-M3) não compensou esse ganho de especialização.
 3. **BM25 e TF-IDF ficam próximos e no piso da comparação** (0,851 e 0,841). Por serem ambos lexicais (*bag of words*), não capturam significado, o que evidencia que o ganho dos embeddings vem da **semântica**, e não apenas de uma técnica de ponderação melhor.
-4. **O risco de "poucos dados" não se concretizou.** Mesmo com apenas 2000 registros (a mesma amostra reduzida do FMF), os embeddings pré-treinados — usados como features fixas, sem *fine-tuning* — já entregam ~0,95 de F1 macro. Isso atenua diretamente a preocupação levantada na Seção 4 sobre o desempenho de modelos de embeddings com volume reduzido de dados.
+4. **O risco de "poucos dados" não se concretizou.** Mesmo com apenas 2.000 registros (a mesma amostra reduzida do FMF), os embeddings pré-treinados — usados como features fixas, sem *fine-tuning* — já entregam ~0,95 de F1 macro. Isso atenua diretamente a preocupação levantada na Seção 4 sobre o desempenho de modelos de embeddings com volume reduzido de dados.
 5. **A Regressão Logística foi o melhor classificador em três das quatro representações** (BM25, BGE-M3 e BGE-large), perdendo apenas no TF-IDF, e por margem mínima. Isso reforça que, sobre embeddings, um classificador linear simples já é suficiente para extrair o sinal de sentimento.
+6. **O Naive Bayes é ressuscitado pelos embeddings.** Nos métodos lexicais, o Naive Bayes é o pior ou quase-pior classificador (~0,632–0,635). Com o BGE-large, ele atinge **0,948** — praticamente empatado com o SVM e apenas 0,002 abaixo da Regressão Logística. Isso revela que a fraqueza do Naive Bayes no projeto FMF não é intrínseca ao classificador, mas sim uma consequência da representação esparsa do TF-IDF: com vetores semânticos densos, o pressuposto de independência condicional do Naive Bayes deixa de ser tão prejudicial.
+7. **A Árvore de Decisão melhora substancialmente, mas permanece a mais fraca.** Ela sai de ~0,642 (TF-IDF) para **0,897** (BGE-large) — um ganho de ~25 pontos —, porém é o único classificador que não alcança 0,90 com o BGE-M3 (0,810). Árvores de decisão têm maior dificuldade com espaços de alta dimensionalidade e contínuos, o que explica a desvantagem residual mesmo sobre embeddings.
+8. **Os embeddings comprimem as diferenças entre classificadores.** No TF-IDF, a amplitude entre o melhor (SVM, 0,841) e o pior (Naive Bayes, 0,632) classificador é de **20,9 pontos**. Com o BGE-large, essa amplitude cai para apenas **5,3 pontos** (0,950 vs. 0,897). A qualidade da representação textual se torna, portanto, o principal determinante do desempenho — mais do que a escolha do algoritmo de classificação.
 
 ### Execução em escala (10k/10k)
 
-Para investigar diretamente o risco de "poucos dados" levantado na Seção 4, o projeto foi reexecutado em escala maior — **10.000 críticas por classe (20.000 no total)**, contra os 2.000 da execução local —, mantendo o mesmo pipeline (mesmos classificadores, mesma divisão 67%/33%). A tabela abaixo compara o melhor F1 macro de cada representação nas duas escalas:
+Para investigar diretamente o risco de "poucos dados" levantado na Seção 4, o projeto foi reexecutado em escala maior — **10.000 críticas por classe (20.000 no total)**, contra os 2.000 da execução local —, mantendo o mesmo pipeline (mesmos quatro classificadores, mesma divisão 67%/33%). A tabela abaixo apresenta o F1 macro completo por representação e classificador nessa escala:
+
+| Representação | SVM (linear) | Regressão Logística | Naive Bayes | Árvore de Decisão | Melhor F1 macro |
+|---|---|---|---|---|---|
+| TF-IDF (baseline FMF) | 0,876 | 0,874 | 0,637 | 0,691 | **0,876** |
+| BM25 | 0,861 | 0,877 | 0,628 | 0,693 | **0,877** |
+| BGE-large-en-v1.5 | 0,945 | 0,943 | 0,938 | 0,893 | **0,945** |
+| BGE-M3 | 0,920 | 0,920 | 0,903 | 0,810 | **0,920** |
+
+A tabela a seguir compara o **melhor F1 macro** de cada representação nas duas escalas:
 
 | Representação | Melhor F1 — 2k (local) | Melhor F1 — 20k (Colab) |
 |---|---|---|
 | TF-IDF (baseline FMF) | 0,841 | 0,876 |
 | BM25 | 0,851 | 0,877 |
+| BGE-large-en-v1.5 | 0,950 | 0,945 |
 | BGE-M3 | 0,930 | 0,920 |
-| BGE-large-en-v1.5 | 0,950 | 0,944 |
 
-Três observações emergem dessa comparação:
+Quatro observações emergem dessa comparação:
 
-1. **Os métodos lexicais melhoram com mais dados.** TF-IDF e BM25 sobem cerca de 3 pontos de F1 macro (de ~0,84–0,85 para ~0,88), beneficiados pelo vocabulário maior e pelo maior número de exemplos.
-2. **Os embeddings permanecem estáveis e mais confiáveis.** BGE-large e BGE-M3 variam pouco (queda de ~0,5 a 1 ponto). Essa leve redução não indica piora real: o conjunto de teste de 20k (6.600 exemplos) é dez vezes maior que o de 2k (660), tornando a estimativa de ~0,944 **menos sujeita a variância** que o 0,950 da amostra pequena.
+1. **Os métodos lexicais melhoram com mais dados.** TF-IDF e BM25 sobem cerca de 3 pontos de F1 macro (de ~0,84–0,85 para ~0,88), beneficiados pelo vocabulário maior e pelo maior número de exemplos. O Naive Bayes, contudo, permanece estagnado (~0,63) independentemente da escala nos métodos lexicais, confirmando que seu teto é imposto pela representação, não pelo volume de dados.
+2. **Os embeddings permanecem estáveis e mais confiáveis.** BGE-large e BGE-M3 variam pouco (queda de ~0,5 a 1 ponto). Essa leve redução não indica piora real: o conjunto de teste de 20k (6.600 exemplos) é dez vezes maior que o de 2k (660), tornando a estimativa de ~0,945 **menos sujeita a variância** que o 0,950 da amostra pequena.
 3. **A vantagem dos embeddings diminui, mas se mantém.** A diferença entre o melhor embedding e o melhor método lexical cai de ~0,11 (2k) para ~0,07 (20k) — os embeddings densos continuam à frente, e a hierarquia entre os modelos (BGE-large > BGE-M3 > BM25 ≈ TF-IDF) se mantém em ambas as escalas.
+4. **O Naive Bayes sobre embeddings permanece competitivo em escala.** Com BGE-large e 20k registros, o Naive Bayes alcança **0,938** — apenas 0,007 abaixo do SVM (0,945). O padrão observado na execução local se repete: a ressurreição do Naive Bayes pelos embeddings é um fenômeno robusto à escala de dados.
 
 ### Fine-tuning (RoBERTa)
 
-As abordagens acima usam os modelos como extratores de *features* **congeladas**. Como experimento complementar, o ciclo `MODEL` foi levado adiante com **fine-tuning** do `RoBERTa-base` — ajustando todos os pesos da rede à tarefa, em vez de apenas extrair vetores. A execução foi feita no Google Colab (GPU), sobre os mesmos 20.000 registros e a mesma divisão treino/teste, com truncamento em 512 tokens (limite arquitetural do RoBERTa).
+As abordagens acima usam os modelos como extratores de *features* **congeladas**. Como experimento complementar, o ciclo `MODEL` foi levado adiante com **fine-tuning** do `RoBERTa-base` sobre os mesmos 20.000 registros — ajustando todos os pesos da rede à tarefa de sentimento. O experimento avalia duas variantes: (a) **fine-tuning E2E** com uma cabeça linear treinada diretamente no topo do RoBERTa (*Linear Head E2E*) e (b) uso das **features extraídas do RoBERTa já ajustado** como entrada para os quatro classificadores clássicos. A execução foi feita no Google Colab (GPU), com truncamento em 512 tokens (limite arquitetural do RoBERTa).
 
-| Abordagem (20k) | Melhor F1 macro |
+| Abordagem (20k) | F1 macro |
 |---|---|
 | TF-IDF / BM25 (lexical) | ~0,877 |
 | BGE-M3 (congelado) | 0,920 |
-| BGE-large (congelado) | 0,944 |
-| RoBERTa-base (fine-tuning) | **0,950** |
+| BGE-large (congelado) | 0,945 |
+| Fine-tuned features — Árvore de Decisão | 0,943 |
+| Fine-tuned features — Regressão Logística | 0,948 |
+| Fine-tuned features — SVM (linear) | 0,949 |
+| Fine-tuned features — Naive Bayes | 0,950 |
+| RoBERTa fine-tuning E2E (Linear Head) | **0,950** |
 
-O fine-tuning **assume a liderança** (0,950), mas por margem modesta sobre o melhor embedding congelado (~0,6 ponto), ao custo de ~21 min de treino contra segundos do classificador linear — o que reforça o bom custo-benefício das *features* congeladas.
+Três observações se destacam:
+
+1. **O fine-tuning E2E assume a liderança (0,950), mas por margem mínima** sobre o melhor embedding congelado (BGE-large, 0,945), ao custo de tempo de treino significativamente maior — reforçando o bom custo-benefício das *features* congeladas.
+2. **O Naive Bayes sobre features fine-tunadas empata com o E2E (0,950).** Após o ajuste fino da rede, as features extraídas tornam-se ainda mais informativas e alinhadas à tarefa, o que beneficia desproporcionalmente o Naive Bayes e elimina completamente a desvantagem que ele apresenta sobre métodos lexicais. Esse resultado estende o padrão observado com embeddings congelados: a qualidade da representação é o fator dominante no desempenho do Naive Bayes.
+3. **Todos os classificadores convergem para uma faixa estreita** (0,943–0,950) sobre as features fine-tunadas — amplitude de apenas 0,7 ponto contra os ~21 pontos do TF-IDF. O fine-tuning comprime ainda mais as diferenças entre classificadores do que os embeddings congelados, evidenciando que, com uma representação suficientemente boa, a escolha do algoritmo de classificação se torna secundária.
 
 ### Conclusão do ciclo
 
-Respondendo à pergunta de pesquisa do projeto FMF — *"Qual modelo de Machine Learning melhor se enquadra na análise de sentimentos?"* — sob a ótica do ciclo de divergência, a resposta é que a **escolha da representação textual importa tanto quanto a escolha do classificador**: trocar o TF-IDF por um embedding denso especialista (BGE-large-en-v1.5) elevou o F1 macro de 0,841 para 0,950 na amostra reduzida, mantendo todo o restante do pipeline inalterado. Esse resultado se mostrou **robusto à escala**: na execução com 20.000 registros, os embeddings densos seguiram à frente dos métodos lexicais (~0,944 contra ~0,877), confirmando a viabilidade da abordagem mesmo com volume reduzido de dados. Por fim, levar o ciclo `MODEL` ao **fine-tuning** (RoBERTa-base) liderou a comparação (0,950 em 20k), porém por margem estreita sobre os embeddings congelados — situando o trabalho como uma exploração de custo-benefício entre métodos lexicais, embeddings congelados e fine-tuning.
+Respondendo à pergunta de pesquisa do projeto FMF — *"Qual modelo de Machine Learning melhor se enquadra na análise de sentimentos?"* — sob a ótica do ciclo de divergência, a resposta é que a **escolha da representação textual importa muito mais do que a escolha do classificador**: trocar o TF-IDF por um embedding denso especialista (BGE-large-en-v1.5) elevou o F1 macro de 0,841 para 0,950 na amostra reduzida, mantendo todo o restante do pipeline inalterado. Esse resultado se mostrou **robusto à escala**: na execução com 20.000 registros, os embeddings densos seguiram à frente dos métodos lexicais (~0,945 contra ~0,877), e a hierarquia entre representações se manteve. O achado mais surpreendente do projeto é a **ressurreição do Naive Bayes**: o classificador que ocupa o último lugar no projeto FMF (~0,632 com TF-IDF) quase empata com os melhores modelos ao receber vetores semânticos (~0,948–0,950), revelando que sua fraqueza original era da representação, não do algoritmo. Por fim, levar o ciclo `MODEL` ao **fine-tuning E2E** (RoBERTa-base) liderou a comparação (0,950 em 20k), porém por margem estreita sobre os embeddings congelados — situando o trabalho como uma exploração de custo-benefício entre métodos lexicais, embeddings congelados e fine-tuning.
 
 ---
 
@@ -296,4 +317,3 @@ Abaixo, está o status de cada tarefa das duas fases principais:
 *Trabalho Final da Disciplina de Pensamento Analítico de Dados*
 
 *Bacharelado em Inteligência Artificial*
-
