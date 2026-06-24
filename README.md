@@ -8,9 +8,9 @@ Nas seções abaixo, é definido:
 2. [Definição dos Ciclos AGEMC no Projeto FMF](#2-definição-dos-ciclos-agemc-no-projeto-fmf): *Finalizado*
 3. [Execução do Projeto FMF](#3-execução-do-projeto-fmf): *Finalizado*
 4. [Definição do Ciclo de Divergência](#4-definição-do-ciclo-de-divergência): *Finalizado*
-5. [Execução do Projeto Original](#5-execução-do-projeto-original): _Em andamento_
-6. [Cronograma de Desenvolvimento](#6-cronograma-de-desenvolvimento): *contínuo*
-7. [Desenvolvimento por Semana](#7-desenvolvimento-por-semana): *contínuo*
+5. [Execução do Projeto Original](#5-execução-do-projeto-original): *Finalizado*
+6. [Cronograma de Desenvolvimento](#6-cronograma-de-desenvolvimento): *Finalizado*
+7. [Desenvolvimento por Semana](#7-desenvolvimento-por-semana): *Finalizado*
 
 ---
 
@@ -251,7 +251,7 @@ Três observações se destacam:
 
 ### Conclusão do ciclo
 
-Respondendo à pergunta de pesquisa do projeto FMF — *"Qual modelo de Machine Learning melhor se enquadra na análise de sentimentos?"* — sob a ótica do ciclo de divergência, a resposta é que a **escolha da representação textual importa muito mais do que a escolha do classificador**: trocar o TF-IDF por um embedding denso especialista (BGE-large-en-v1.5) elevou o F1 macro de 0,841 para 0,950 na amostra reduzida, mantendo todo o restante do pipeline inalterado. Esse resultado se mostrou **robusto à escala**: na execução com 20.000 registros, os embeddings densos seguiram à frente dos métodos lexicais (~0,945 contra ~0,877), e a hierarquia entre representações se manteve. O achado mais surpreendente do projeto é a **ressurreição do Naive Bayes**: o classificador que ocupa o último lugar no projeto FMF (~0,632 com TF-IDF) quase empata com os melhores modelos ao receber vetores semânticos (~0,948–0,950), revelando que sua fraqueza original era da representação, não do algoritmo. Por fim, levar o ciclo `MODEL` ao **fine-tuning E2E** (RoBERTa-base) liderou a comparação (0,950 em 20k), porém por margem estreita sobre os embeddings congelados — situando o trabalho como uma exploração de custo-benefício entre métodos lexicais, embeddings congelados e fine-tuning.
+Respondendo à pergunta de pesquisa do projeto FMF — *"Qual modelo de Machine Learning melhor se enquadra na análise de sentimentos?"* — sob a ótica do ciclo de divergência, os experimentos confirmam que a representação textual é o fator dominante no desempenho: substituir o TF-IDF pelo BGE-large-en-v1.5 elevou o F1 macro de 0,841 para 0,950 mantendo exatamente os mesmos dados e classificadores. Essa vantagem persiste em escala — 0,945 contra 0,877 com 20.000 registros —, indicando que o ganho vem da semântica codificada no modelo pré-treinado, não do volume de dados. O papel do classificador revelou-se secundário: com TF-IDF, a amplitude entre o melhor (SVM, 0,841) e o pior resultado (Naive Bayes, 0,632) é de 21 pontos; com BGE-large, essa distância colapsa para 5 pontos. A principal lição é que o Naive Bayes (último lugar no projeto FMF) empata com o fine-tuning E2E do RoBERTa (0,950) ao receber uma representação adequada, invertendo completamente a hierarquia do benchmark original e demonstrando que a fraqueza observada era da representação, não do algoritmo.
 
 ---
 
@@ -280,7 +280,7 @@ Abaixo, está o status de cada tarefa das duas fases principais:
    a) status: `concluída`
 2. _Execução do Projeto Original_
 
-   a) status: `em andamento`
+   a) status: `concluída`
    
 ## 7. Desenvolvimento por Semana
 
@@ -302,7 +302,7 @@ Abaixo, está o status de cada tarefa das duas fases principais:
 4. A primeira ideia levantada foi a mudança no ciclo `MODEL`, vinda a partir da segunda limitação observada durante os estudos da primeira semana. O objetivo inicial será adicionar modelos de embeddings, além do algoritmos clássicos de Machine Learning utilizados no projeto FMF;
 
 ### *Semana 4 (18/06 a 25/06)* — *última semana*
-- `Em andamento` -
+- `Finalizada` -
 1. Finalização da execução do projeto Original (ciclo de divergência `MODEL`);
 2. Implementação da mudança no ciclo `MODEL` (substituição do TF-IDF por embeddings: BM25, BGE-large e BGE-M3), por Felipe Albernaz;
 3. Reexecução do notebook de embeddings em GPU local (amostra de 2.000 registros), com resultados reproduzíveis salvos no repositório;
